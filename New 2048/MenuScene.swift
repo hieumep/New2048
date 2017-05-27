@@ -13,6 +13,7 @@ class MenuScene : SKScene {
     var continueButton : SKSpriteNode?
     var gameVsAIButton : SKSpriteNode?
     var newButton : SKSpriteNode!
+    var rateButton : SKSpriteNode!
     var paddingY : CGFloat = 150
     
     override func didMove(to view: SKView) {
@@ -20,6 +21,7 @@ class MenuScene : SKScene {
         setupNewButton()
         setupContinueButton()
         setupGameVsAIButton()
+        setupRateButton()
     }
     
     //setup newButton 
@@ -46,6 +48,14 @@ class MenuScene : SKScene {
         gameVsAIButton?.zPosition = 1
         gameVsAIButton?.position = CGPoint(x: 0, y: -paddingY / 3 + gameVsAIButton!.size.height / 2 )
         addChild(gameVsAIButton!)
+    }
+    
+    //setup rate button
+    func setupRateButton(){
+        rateButton = SKSpriteNode(imageNamed: "RateButton")
+        rateButton.zPosition = 1
+        rateButton.position = CGPoint(x: 0, y: -(paddingY + rateButton.size.height / 2))
+        addChild(rateButton)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -77,5 +87,19 @@ class MenuScene : SKScene {
                 view?.presentScene(menuAIScene, transition: revealAI)
             }
         }
+        
+        if rateButton.contains(touchLocation!){
+            rateAndReview()
+        }
+    }
+    
+    func rateAndReview(){
+        let url = URL(string : "itms-apps://itunes.apple.com/gb/app/id1217722664?action=write-review&mt=8")
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url!)
+        }
+        print("da an vao")
     }
 }
