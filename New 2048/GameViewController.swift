@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import GoogleMobileAds
 
 class GameViewController: UIViewController {
     
@@ -16,11 +17,17 @@ class GameViewController: UIViewController {
     //var scene : MenuScene!
     var radioWidth : CGFloat! = 1
     var radioHeight : CGFloat! = 1
- 
+    var bannerView: GADBannerView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        self.view.addSubview(bannerView)
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.rootViewController = self
+        let request = GADRequest()
+        request.testDevices = [ kGADSimulatorID]
+        bannerView.load(request)
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
         let size = CGSize(width: 414, height: 736)

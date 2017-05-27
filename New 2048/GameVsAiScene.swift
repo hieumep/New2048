@@ -296,6 +296,7 @@ class GameVsAiScene : SKScene {
             } else {
                 print("Continue game")
                 if !self.playerFlag {
+                    self.swipeAbleFlag = false
                     if self.funAI {
                         self.processFunAI()
                     }else {
@@ -378,7 +379,6 @@ class GameVsAiScene : SKScene {
             }
         }
         run(SKAction.wait(forDuration: duration + 0.5)){
-            self.swipeAbleFlag = true
             self.removeAllActions()
             if self.playerFlag {
                 self.playerScore += score
@@ -396,6 +396,7 @@ class GameVsAiScene : SKScene {
                             self.animateNewNode(node: newNode!)
                         }
                     }else {
+                        self.swipeAbleFlag = true
                         self.continueScene()
                     }
                     
