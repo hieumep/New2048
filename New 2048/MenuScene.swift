@@ -14,7 +14,9 @@ class MenuScene : SKScene {
     var gameVsAIButton : SKSpriteNode?
     var newButton : SKSpriteNode!
     var rateButton : SKSpriteNode!
+    var soundButton : SKSpriteNode!
     var paddingY : CGFloat = 150
+    var flagSound = true
     
     override func didMove(to view: SKView) {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -22,6 +24,16 @@ class MenuScene : SKScene {
         setupContinueButton()
         setupGameVsAIButton()
         setupRateButton()
+        setupSoundButton()
+    }
+    
+    //setup sound Button
+    func setupSoundButton() {
+        let soundTexture = SKTexture(image: #imageLiteral(resourceName: "SoundButton"))
+        soundButton = SKSpriteNode(texture: soundTexture)
+        soundButton.zPosition = 1
+        soundButton.position = CGPoint(x: 150 , y: paddingY + newButton.size.height + soundButton.size.height / 2)
+        addChild(soundButton)
     }
     
     //setup newButton 
@@ -91,6 +103,22 @@ class MenuScene : SKScene {
         if rateButton.contains(touchLocation!){
             rateAndReview()
         }
+        
+        if soundButton.contains(touchLocation!){
+            flagSound = !flagSound
+            soundOnOff()
+        }
+    }
+    
+    func soundOnOff(){
+        let soundTexture : SKTexture!
+        if flagSound {
+            soundTexture = SKTexture(image: #imageLiteral(resourceName: "SoundButton"))
+        }else {
+            soundTexture = SKTexture(image: #imageLiteral(resourceName: "MuteSoundButton"))
+        }
+        soundButton.texture = soundTexture
+        
     }
     
     func rateAndReview(){

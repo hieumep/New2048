@@ -24,6 +24,7 @@
 		51CCEBBF1ED9176D00D3AEF4 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CCEBBD1ED9176D00D3AEF4 /* Array2D.swift */; };
 		51CCEBC01ED9176D00D3AEF4 /* myUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CCEBBE1ED9176D00D3AEF4 /* myUtils.swift */; };
 		51CCEBC21ED9181F00D3AEF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51CCEBC11ED9181F00D3AEF4 /* Assets.xcassets */; };
+		51CCEBC71ED95DDD00D3AEF4 /* Mix.wav in Resources */ = {isa = PBXBuildFile; fileRef = 51CCEBC61ED95DDD00D3AEF4 /* Mix.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		51CCEBBD1ED9176D00D3AEF4 /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
 		51CCEBBE1ED9176D00D3AEF4 /* myUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myUtils.swift; sourceTree = "<group>"; };
 		51CCEBC11ED9181F00D3AEF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		51CCEBC61ED95DDD00D3AEF4 /* Mix.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Mix.wav; sourceTree = "<group>"; };
 		9B66B981D1012A06F979CA61 /* Pods-New 2048.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-New 2048.release.xcconfig"; path = "Pods/Target Support Files/Pods-New 2048/Pods-New 2048.release.xcconfig"; sourceTree = "<group>"; };
 		D8DA2F80C35CE8E41F046A70 /* Pods_New_2048.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_New_2048.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE1990EFFCAA5A74B9CB51CE /* Pods-New 2048.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-New 2048.debug.xcconfig"; path = "Pods/Target Support Files/Pods-New 2048/Pods-New 2048.debug.xcconfig"; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				51CCEBA61ED9169F00D3AEF4 /* Scene */,
 				51CCEB8E1ED915CA00D3AEF4 /* AppDelegate.swift */,
 				51CCEB981ED915CA00D3AEF4 /* Main.storyboard */,
+				51CCEBC61ED95DDD00D3AEF4 /* Mix.wav */,
 				51CCEB9D1ED915CA00D3AEF4 /* LaunchScreen.storyboard */,
 				51CCEBC11ED9181F00D3AEF4 /* Assets.xcassets */,
 				51CCEBA01ED915CA00D3AEF4 /* Info.plist */,
@@ -217,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51CCEB9A1ED915CA00D3AEF4 /* Main.storyboard in Resources */,
+				51CCEBC71ED95DDD00D3AEF4 /* Mix.wav in Resources */,
 				51CCEBC21ED9181F00D3AEF4 /* Assets.xcassets in Resources */,
 				51CCEB9F1ED915CA00D3AEF4 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -457,6 +461,7 @@
 				51CCEBA51ED915CA00D3AEF4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

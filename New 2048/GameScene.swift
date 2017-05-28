@@ -320,7 +320,8 @@ class GameScene: SKScene {
                     let animateTexture = SKAction.animate(with: [newTexture!], timePerFrame: 0.1)
                     let ZoomOut = SKAction.scale(to: CGSize(width: size.width * 1.2, height: size.height * 1.2), duration: 0.1)
                     let ZoomIn = SKAction.scale(to: size, duration: 0.1)
-                    nextNode?.run(SKAction.sequence([SKAction.wait(forDuration: duration), animateTexture, ZoomOut,ZoomIn])){
+                    let sound = SKAction.playSoundFileNamed("Mix.wav", waitForCompletion: false)
+                    nextNode?.run(SKAction.sequence([SKAction.wait(forDuration: duration), animateTexture, sound, ZoomOut,ZoomIn])){
                         if self.boardGame.highestNode > self.highestNodeNumber {
                             //change highest Node Number
                             let imageName = "Node_Bg_\(self.boardGame.highestNode)"
