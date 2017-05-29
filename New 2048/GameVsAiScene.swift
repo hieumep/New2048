@@ -28,6 +28,7 @@ class GameVsAiScene : SKScene {
     var newGame = true
     var boardGame = BoardGame()
     var swipeAbleFlag = true
+    var flagSound = true
     var funAI = true
     
     var AIScore = 0 {
@@ -78,7 +79,9 @@ class GameVsAiScene : SKScene {
         AIBg = SKSpriteNode(texture: AITextureBg)
         super.init(size: size)
         self.newGame = newGame
-        
+        if let sound = UserDefaults.standard.object(forKey: "sound") as? Bool {
+            flagSound = sound
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -358,7 +361,6 @@ class GameVsAiScene : SKScene {
                     moveAction.timingMode = .easeOut
                     let fadeOutAction = SKAction.fadeOut(withDuration: 0.15)
                     fadeOutAction.timingMode = .easeOut
-                    
                     skNode?.run(SKAction.sequence([moveAction, fadeOutAction,SKAction.removeFromParent()])){
                         self.boardGame.gameArray[node.column, node.row]?.mix = false
                     }
@@ -369,7 +371,14 @@ class GameVsAiScene : SKScene {
                     let animateTexture = SKAction.animate(with: [newTexture!], timePerFrame: 0.1)
                     let ZoomOut = SKAction.scale(to: CGSize(width: size.width * 1.2, height: size.height * 1.2), duration: 0.1)
                     let ZoomIn = SKAction.scale(to: size, duration: 0.1)
-                    nextNode?.run(SKAction.sequence([SKAction.wait(forDuration: duration), animateTexture, ZoomOut,ZoomIn])){
+                    let sound = SKAction.playSoundFileNamed("Mix.wav", waitForCompletion: false)
+                    var skActionSequence = SKAction.sequence([])
+                    if flagSound {
+                        skActionSequence = SKAction.sequence([SKAction.wait(forDuration: duration), animateTexture, sound, ZoomOut,ZoomIn])
+                    }   else {
+                        skActionSequence = SKAction.sequence([SKAction.wait(forDuration: duration), animateTexture, ZoomOut,ZoomIn])
+                    }
+                    nextNode?.run(skActionSequence){
                     }
                 }else {
                     skNode!.run(SKAction.move(to: newPosition, duration: duration ))

@@ -31,6 +31,7 @@ class MenuScene : SKScene {
     func setupSoundButton() {
         let soundTexture = SKTexture(image: #imageLiteral(resourceName: "SoundButton"))
         soundButton = SKSpriteNode(texture: soundTexture)
+        soundOnOff()
         soundButton.zPosition = 1
         soundButton.position = CGPoint(x: 150 , y: paddingY + newButton.size.height + soundButton.size.height / 2)
         addChild(soundButton)
@@ -106,12 +107,16 @@ class MenuScene : SKScene {
         
         if soundButton.contains(touchLocation!){
             flagSound = !flagSound
+            UserDefaults.standard.set(flagSound, forKey: "sound")
             soundOnOff()
         }
     }
     
     func soundOnOff(){
         let soundTexture : SKTexture!
+        if let sound = UserDefaults.standard.object(forKey: "sound") as? Bool {
+            flagSound = sound
+        }
         if flagSound {
             soundTexture = SKTexture(image: #imageLiteral(resourceName: "SoundButton"))
         }else {

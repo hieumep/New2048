@@ -10,42 +10,52 @@ import Foundation
 import SpriteKit
 
 class MenuAIScene : SKScene {
-    var continueButton : SKSpriteNode?
     var striclyAIButton : SKSpriteNode?
     var funAIButton : SKSpriteNode!
     var menuButton : SKSpriteNode!
     var paddingY : CGFloat = 150
+    var flagFunAI = false  // if false = locked
+    var flagStrictlyAI = false
     
     override func didMove(to view: SKView) {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        if let flag = UserDefaults.standard.object(forKey: "funAIMode") as? Bool {
+            flagFunAI = flag
+        }
+        
+        if let flag = UserDefaults.standard.object(forKey: "strictlyAIMode") as? Bool {
+            flagStrictlyAI = flag
+        }
+
         setupFunAIButton()
-       // setupContinueButton()
         setupStriclyAIButton()
         setupMenuButton()
     }
     
     //setup FunAIButton
     func setupFunAIButton() {
-        funAIButton = SKSpriteNode(imageNamed: "FunAIButton")
+        let texture : SKTexture
+        if flagFunAI {
+            texture = SKTexture(image: #imageLiteral(resourceName: "FunAIButton"))
+        }else {
+            texture = SKTexture(image: #imageLiteral(resourceName: "FunAILocked"))
+        }
+        funAIButton = SKSpriteNode(texture: texture)
         funAIButton.zPosition = 1
         funAIButton.position = CGPoint(x: 0 , y: paddingY / 3 + funAIButton.size.height / 2)
         addChild(funAIButton)
     }
     
-    //setup continueButton
-    func setupContinueButton() {
-        if let _ = UserDefaults.standard.object(forKey: "bestScore") as? Int {
-            continueButton = SKSpriteNode(imageNamed: "ContinueButton")
-            continueButton?.zPosition = 1
-            continueButton?.position = CGPoint(x: 0, y: paddingY + (continueButton?.size.height)! / 2)
-            addChild(continueButton!)
-        }
-        
-    }
     
     // setup striclyAIButton
     func setupStriclyAIButton(){
-        striclyAIButton = SKSpriteNode(imageNamed: "StriclyAIButton")
+        let texture : SKTexture
+        if flagStrictlyAI {
+            texture = SKTexture(image: #imageLiteral(resourceName: "StriclyAIButton"))
+        } else {
+            texture = SKTexture(image: #imageLiteral(resourceName: "StrictlyAILocked"))
+        }
+        striclyAIButton = SKSpriteNode(texture: texture)
         striclyAIButton?.zPosition = 1
         striclyAIButton?.position = CGPoint(x: 0, y: -paddingY / 3 + striclyAIButton!.size.height / 2 )
         addChild(striclyAIButton!)
@@ -63,22 +73,24 @@ class MenuAIScene : SKScene {
         let touch = touches.first
         let touchLocation = touch?.location(in: self)
         let reveal = SKTransition.doorsOpenHorizontal(withDuration: 0.5)
-        if funAIButton.contains(touchLocation!){
-            let gameVsAiScene = GameVsAiScene(size: self.size, newGame: true, funAI : true)
-            view?.presentScene(gameVsAiScene, transition: reveal)
-        }
         
-        if let continueButton = continueButton {
-            if continueButton.contains(touchLocation!){
-                let gameScene = GameScene(size: self.size, newGame: false)
-                view?.presentScene(gameScene, transition: reveal)
+        if funAIButton.contains(touchLocation!){
+            if flagFunAI {
+                let gameVsAiScene = GameVsAiScene(size: self.size, newGame: true, funAI : true)
+                view?.presentScene(gameVsAiScene, transition: reveal)
+            } else {
+                alert(funAI: true)
             }
         }
         
         if let striclyAIButton = striclyAIButton {
             if striclyAIButton.contains(touchLocation!) {
-                let gameVsAiScene = GameVsAiScene(size: self.size, newGame: true, funAI : false)
-                view?.presentScene(gameVsAiScene, transition: reveal)
+                if flagStrictlyAI {
+                    let gameVsAiScene = GameVsAiScene(size: self.size, newGame: true, funAI : false)
+                    view?.presentScene(gameVsAiScene, transition: reveal)
+                } else {
+                    alert(funAI: false)
+                }
             }
         }
         
@@ -87,5 +99,18 @@ class MenuAIScene : SKScene {
             let menuScene = MenuScene(size: size)
             view?.presentScene(menuScene, transition: revealClose)
         }
+    }
+    
+    func alert(funAI : Bool){
+        var text = ""
+        if funAI{
+            text = "If you get 2048 tile , you can unlock this mode"
+        }else {
+            text = "If you get 4096 tile , you can unlock this mode"
+        }
+        let alert = UIAlertController(title: "Unlock", message: text, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "Got it", style: .default, handler: nil)
+        alert.addAction(alertAction)
+        self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
     }
 }

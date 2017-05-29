@@ -27,6 +27,7 @@ class GameScene: SKScene {
     var newGame = true
     var boardGame = BoardGame()
     var swipeAbleFlag = true
+    var flagSound = true
     
     var highestNodeNumber = 8 {
         didSet{
@@ -57,6 +58,9 @@ class GameScene: SKScene {
     init(size: CGSize, newGame : Bool) {
         super.init(size: size)
         self.newGame = newGame
+        if let sound = UserDefaults.standard.object(forKey: "sound") as? Bool {
+            flagSound = sound
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -321,7 +325,13 @@ class GameScene: SKScene {
                     let ZoomOut = SKAction.scale(to: CGSize(width: size.width * 1.2, height: size.height * 1.2), duration: 0.1)
                     let ZoomIn = SKAction.scale(to: size, duration: 0.1)
                     let sound = SKAction.playSoundFileNamed("Mix.wav", waitForCompletion: false)
-                    nextNode?.run(SKAction.sequence([SKAction.wait(forDuration: duration), animateTexture, sound, ZoomOut,ZoomIn])){
+                    var skActionSequence = SKAction.sequence([])
+                    if flagSound {
+                        skActionSequence = SKAction.sequence([SKAction.wait(forDuration: duration), animateTexture, sound, ZoomOut,ZoomIn])
+                    }   else {
+                        skActionSequence = SKAction.sequence([SKAction.wait(forDuration: duration), animateTexture, ZoomOut,ZoomIn])
+                    }
+                    nextNode?.run(skActionSequence){
                         if self.boardGame.highestNode > self.highestNodeNumber {
                             //change highest Node Number
                             let imageName = "Node_Bg_\(self.boardGame.highestNode)"
