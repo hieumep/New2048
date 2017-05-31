@@ -398,28 +398,12 @@ class GameVsAiScene : SKScene {
             self.playerBg.texture = self.playerTextureBg
             self.AIBg.texture = self.AITextureBg
             if !self.boardGame.isFull() {
-                if self.boardGame.is2048 {
-                    if self.continueGameWhen2048 {
-                        if !array.isEmpty {
-                            let newNode = self.boardGame.randomNumberNode()
-                            self.animateNewNode(node: newNode!)
-                        }
-                    }else {
-                        self.swipeAbleFlag = true
-                        self.continueScene()
-                    }
-                    
-                }else {
-                    if !array.isEmpty {
+                if !array.isEmpty {
                         let newNode = self.boardGame.randomNumberNode()
                         self.animateNewNode(node: newNode!)
-                    }
+                        self.swipeAbleFlag = true
                 }
-            }
-            
-            //self.run(SKAction.wait(forDuration: 0.5)){
-                
-            //}
+            }            
         }
     }
     

@@ -7,4 +7,7 @@ target 'New 2048' do
 	
   # Pods for New 2048
   pod 'Google-Mobile-Ads-SDK'
+  pod 'FacebookShare'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
 end

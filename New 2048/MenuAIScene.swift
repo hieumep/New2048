@@ -19,14 +19,6 @@ class MenuAIScene : SKScene {
     
     override func didMove(to view: SKView) {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        if let flag = UserDefaults.standard.object(forKey: "funAIMode") as? Bool {
-            flagFunAI = flag
-        }
-        
-        if let flag = UserDefaults.standard.object(forKey: "strictlyAIMode") as? Bool {
-            flagStrictlyAI = flag
-        }
-
         setupFunAIButton()
         setupStriclyAIButton()
         setupMenuButton()
@@ -35,6 +27,9 @@ class MenuAIScene : SKScene {
     //setup FunAIButton
     func setupFunAIButton() {
         let texture : SKTexture
+        if let flag = UserDefaults.standard.object(forKey: Constants.funAIMode) as? Bool {
+            flagFunAI = flag
+        }
         if flagFunAI {
             texture = SKTexture(image: #imageLiteral(resourceName: "FunAIButton"))
         }else {
@@ -50,6 +45,9 @@ class MenuAIScene : SKScene {
     // setup striclyAIButton
     func setupStriclyAIButton(){
         let texture : SKTexture
+        if let flag = UserDefaults.standard.object(forKey: Constants.strictlyAIMode) as? Bool {
+            flagStrictlyAI = flag
+        }
         if flagStrictlyAI {
             texture = SKTexture(image: #imageLiteral(resourceName: "StriclyAIButton"))
         } else {

@@ -8,6 +8,7 @@
 
 import Foundation
 import SpriteKit
+import FacebookShare
 
 class MenuScene : SKScene {
     var continueButton : SKSpriteNode?
@@ -16,6 +17,7 @@ class MenuScene : SKScene {
     var rateButton : SKSpriteNode!
     var soundButton : SKSpriteNode!
     var paddingY : CGFloat = 150
+    var facebookButton : SKSpriteNode!
     var flagSound = true
     
     override func didMove(to view: SKView) {
@@ -25,6 +27,7 @@ class MenuScene : SKScene {
         setupGameVsAIButton()
         setupRateButton()
         setupSoundButton()
+        //setupFacebookButton()
     }
     
     //setup sound Button
@@ -69,6 +72,14 @@ class MenuScene : SKScene {
         rateButton.zPosition = 1
         rateButton.position = CGPoint(x: 0, y: -(paddingY + rateButton.size.height / 2))
         addChild(rateButton)
+    }
+    
+    //setup facebook button
+    func setupFacebookButton(){
+        facebookButton = SKSpriteNode(imageNamed: "logoFB")
+        facebookButton.zPosition = 1
+        facebookButton.position = CGPoint(x : -62.5 , y : rateButton.position.y - paddingY / 3 - facebookButton.size.height / 2)
+        addChild(facebookButton)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -135,4 +146,21 @@ class MenuScene : SKScene {
         }
         print("da an vao")
     }
+    
+//    func facebookShare(){
+//        let myContent = LinkShareContent(url: NSURL(string: "https://developers.facebook.com")! as URL)
+//        let shareDialog = ShareDialog(content: myContent)
+//        shareDialog.mode = .native
+//        shareDialog.failsOnInvalidData = true
+//        shareDialog.completion = { result in
+//            // Handle share results
+//            print("facebook share")
+//        }
+//        
+//        do {
+//            try shareDialog.show()
+//        }catch {
+//        
+//        }
+//    }
 }

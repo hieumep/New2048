@@ -24,10 +24,29 @@ class BoardGame : NSObject{
     var gameState : GameState?
     var loadGame = false
     var is2048 = false
+    var is4096 = false
+    var flagShowUnlock2048 = false
+    var flagShowUnlock4096 = false
     
     override init(){
         super.init()
         setupBoardWithZeroNode()
+        // check unlock 2048
+        if let flag = UserDefaults.standard.object(forKey: Constants.funAIMode) as? Bool {
+            if !flag {
+                flagShowUnlock2048 = true
+            }
+        }else{
+            flagShowUnlock2048 = true
+        }
+        //check unlock 4096
+        if let flag = UserDefaults.standard.object(forKey: Constants.strictlyAIMode) as? Bool {
+            if !flag {
+                flagShowUnlock4096 = true
+            }
+        }else {
+            flagShowUnlock4096 = true
+        }
     }
     
     // save game State
@@ -383,14 +402,33 @@ class BoardGame : NSObject{
             node.newColumn = mixIntoNode.column
             node.number = 0
             mixIntoNode.number = mixIntoNode.number * 2
-            if mixIntoNode.number == 2048 {
-                is2048 = true
+            if mixIntoNode.number >= 2048 {
+                unlockAIMode(number: mixIntoNode.number)
             }
             highestNode = max(highestNode, mixIntoNode.number * 2)
             node.mix = true
             return node
         }
         return nil
+    }
+    
+    //unlock AI Mode 
+    func unlockAIMode(number : Int) {
+        if number == 2048 {
+            is2048 = true
+            // khi flag show == true , nghia la chua unlock mode
+            if flagShowUnlock2048 {
+                UserDefaults.standard.set(true, forKey: Constants.funAIMode)
+                print("set 2048")
+            }
+        }
+        if number == 4096 {            
+            is4096 = true
+            if flagShowUnlock4096{
+                UserDefaults.standard.set(true, forKey: Constants.strictlyAIMode)
+                print("set 4096")
+            }
+        }
     }
     
     func printArray(){
@@ -477,6 +515,8 @@ class BoardGame : NSObject{
         return direction
     }
     
+    
+    //Strictly AI Move
     func processAI() -> moveDirection? {
         var arrayDirection = [moveDirection]()
         var direction : moveDirection? = nil

@@ -173,11 +173,24 @@ class GameScene: SKScene {
                     if self.boardGame.is2048 {
                         if self.continueGameWhen2048 {
                             if !array.isEmpty {
+                                if self.boardGame.is4096 && self.boardGame.flagShowUnlock4096{
+                                    self.continueScene(unlock: true, number: 4096)
+                                    self.boardGame.flagShowUnlock4096 = false
+                                }
                                 let newNode = self.boardGame.randomNumberNode()
                                 self.animateNewNode(node: newNode!)
                             }
                         }else {
-                            self.continueScene()
+                            if self.boardGame.flagShowUnlock2048 {
+                                self.continueScene(unlock: true, number: 2048)
+                                self.boardGame.flagShowUnlock2048 = false
+                            }else {
+                                self.continueScene(unlock: false, number: 0)
+                            }
+                            if !array.isEmpty {
+                                let newNode = self.boardGame.randomNumberNode()
+                                self.animateNewNode(node: newNode!)
+                            }
                         }
                         
                     }else {
@@ -355,8 +368,21 @@ class GameScene: SKScene {
     }
     
     // setup continue sceen when player get 2048
-    func continueScene(){
-        continueSceneNode = SKSpriteNode(imageNamed: "Continue_Bg")
+    func continueScene(unlock : Bool, number : Int){
+        var node2048Texure = SKTexture(image: #imageLiteral(resourceName: "Node_Bg_2048"))
+        if unlock {
+            if number == 2048 {
+                node2048Texure = SKTexture(image: #imageLiteral(resourceName: "FunAIButton"))
+            } else if number == 4096 {
+                node2048Texure = SKTexture(image: #imageLiteral(resourceName: "StriclyAIButton"))
+            }
+        }
+        var bgTexture = SKTexture(image: #imageLiteral(resourceName: "Continue_Bg"))
+        if unlock {
+            bgTexture = SKTexture(image: #imageLiteral(resourceName: "unlockModeBg"))
+        }
+        
+        continueSceneNode = SKSpriteNode(texture: bgTexture)
         continueSceneNode?.zPosition = 5
         continueSceneNode?.position = CGPoint(x: 0, y: 0)
         addChild(continueSceneNode!)
@@ -374,7 +400,7 @@ class GameScene: SKScene {
         continueSceneNode?.addChild(newGameButton!)
         
         //setup 2048 node
-        let node2048 = SKSpriteNode(imageNamed: "Node_Bg_2048")
+        let node2048 = SKSpriteNode(texture: node2048Texure)
         node2048.zPosition = 1
         node2048.position = CGPoint(x: 0, y: node2048.size.height)
         continueSceneNode?.addChild(node2048)
