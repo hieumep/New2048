@@ -20,10 +20,10 @@ class GameViewController: UIViewController {
     var bannerView: GADBannerView!
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         self.view.addSubview(bannerView)
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-5300329803332227/4886181799"
         bannerView.rootViewController = self
         let request = GADRequest()
         request.testDevices = [ kGADSimulatorID]
@@ -32,9 +32,9 @@ class GameViewController: UIViewController {
         // including entities and graphs.
         let size = CGSize(width: 414, height: 736)
        
-        let scene = MenuScene(size: size)
+        //let scene = MenuScene(size: size)
         //let scene = EndGameScene(size: size, isWin: true, highestNodeNumber : 4096)
-        //let scene = EndGameAIScene(size: size, playerScore: 2, AIScore: 4)
+        let scene = EndGameAIScene(size: size, playerScore: 2, AIScore: 4)
         //let scene = GameVsAiScene(size: size, newGame: true)
         let skView = view as! SKView!
         //scene.scaleMode = .aspectFill

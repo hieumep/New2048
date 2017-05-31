@@ -138,7 +138,7 @@ class MenuScene : SKScene {
     }
     
     func rateAndReview(){
-        let url = URL(string : "itms-apps://itunes.apple.com/gb/app/id1217722664?action=write-review&mt=8")
+        let url = URL(string : "itms-apps://itunes.apple.com/gb/app/id1242708820?action=write-review&mt=8")
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(url!, options: [:], completionHandler: nil)
         } else {

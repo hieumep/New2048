@@ -8,8 +8,9 @@
 
 import Foundation
 import SpriteKit
+import GoogleMobileAds
 
-class EndGameAIScene : SKScene {
+class EndGameAIScene : SKScene, GADInterstitialDelegate {
     
     let winText = "You Win! I'll win next time "
     let loseText =  "You lose!Can you beat me next time?"
@@ -22,6 +23,7 @@ class EndGameAIScene : SKScene {
     let AIScoreLabel = SKLabelNode(text: "0")
     let playerNode = SKSpriteNode(imageNamed: "Score_Bg")
     let AINode = SKSpriteNode(imageNamed: "bestScore_Bg")
+    var interstitial: GADInterstitial!
     
     init(size: CGSize, playerScore : Int, AIScore : Int) {
         self.AIScore = AIScore
@@ -30,7 +32,7 @@ class EndGameAIScene : SKScene {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         winLabel.text = winText
         loseLabel.text = loseText
-        
+        interstitial = createAndLoadInterstitial()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -106,11 +108,29 @@ class EndGameAIScene : SKScene {
         let touchLocation = touch?.location(in: self)
         
         if newButton.contains(touchLocation!){
-            let reveal = SKTransition.doorsOpenHorizontal(withDuration: 0.5)
-            let gameScene = MenuScene(size: size)
-            view?.presentScene(gameScene, transition: reveal)
-            
+            if interstitial.isReady{
+                interstitial.present(fromRootViewController: (self.view?.window?.rootViewController)!)
+            }else {
+                let reveal = SKTransition.doorsOpenHorizontal(withDuration: 0.5)
+                let gameScene = MenuScene(size: size)
+                view?.presentScene(gameScene, transition: reveal)
+            }
         }
     }
     
+    func createAndLoadInterstitial() -> GADInterstitial {
+        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-5300329803332227/4522594999")
+        interstitial.delegate = self
+        let request = GADRequest()
+        request.testDevices = [ kGADSimulatorID]
+        interstitial.load(request)
+        return interstitial
+    }
+    
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        interstitial = createAndLoadInterstitial()
+        let reveal = SKTransition.doorsOpenHorizontal(withDuration: 0.5)
+        let gameScene = MenuScene(size: size)
+        view?.presentScene(gameScene, transition: reveal)
+    }
 }
