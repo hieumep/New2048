@@ -27,7 +27,7 @@ class MenuScene : SKScene {
         setupGameVsAIButton()
         setupRateButton()
         setupSoundButton()
-        //setupFacebookButton()
+        setupFacebookButton()
     }
     
     //setup sound Button
@@ -76,9 +76,9 @@ class MenuScene : SKScene {
     
     //setup facebook button
     func setupFacebookButton(){
-        facebookButton = SKSpriteNode(imageNamed: "logoFB")
+        facebookButton = SKSpriteNode(imageNamed: "FbShare")
         facebookButton.zPosition = 1
-        facebookButton.position = CGPoint(x : -62.5 , y : rateButton.position.y - paddingY / 3 - facebookButton.size.height / 2)
+        facebookButton.position = CGPoint(x : 0 , y : rateButton.position.y - paddingY / 3 - facebookButton.size.height / 2)
         addChild(facebookButton)
     }
     
@@ -121,6 +121,10 @@ class MenuScene : SKScene {
             UserDefaults.standard.set(flagSound, forKey: "sound")
             soundOnOff()
         }
+        
+        if facebookButton.contains(touchLocation!){
+            facebookShare()
+        }
     }
     
     func soundOnOff(){
@@ -147,20 +151,25 @@ class MenuScene : SKScene {
         print("da an vao")
     }
     
-//    func facebookShare(){
-//        let myContent = LinkShareContent(url: NSURL(string: "https://developers.facebook.com")! as URL)
-//        let shareDialog = ShareDialog(content: myContent)
+    func facebookShare(){
+        var myContent = LinkShareContent(url: NSURL(string: "https://itunes.apple.com/app/id1242708820")! as URL)
+        myContent.title = "Play game"
+        myContent.description = "new 2048 generation with challenge with AI"
+        let shareDialog = ShareDialog(content: myContent)
+        shareDialog.presentingViewController = self.view?.window?.rootViewController
 //        shareDialog.mode = .native
 //        shareDialog.failsOnInvalidData = true
-//        shareDialog.completion = { result in
-//            // Handle share results
-//            print("facebook share")
-//        }
-//        
-//        do {
-//            try shareDialog.show()
-//        }catch {
-//        
-//        }
-//    }
+       shareDialog.completion = { result in
+            // Handle share results
+            print("facebook share")
+        }
+        
+        do {
+            try shareDialog.show()
+        }catch {
+            print("loi")
+        }
+    }
+    
+
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		376F3B977F88446B5B4E7490 /* Pods_New_2048.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8DA2F80C35CE8E41F046A70 /* Pods_New_2048.framework */; };
+		512280C31EE27E8700A33A9D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512280C21EE27E8700A33A9D /* GoogleService-Info.plist */; };
 		51A83A891EDE204300383840 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A83A881EDE204300383840 /* Constants.swift */; };
 		51CCEB8F1ED915CA00D3AEF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CCEB8E1ED915CA00D3AEF4 /* AppDelegate.swift */; };
 		51CCEB951ED915CA00D3AEF4 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CCEB941ED915CA00D3AEF4 /* GameScene.swift */; };
@@ -29,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		512280C11EE1297B00A33A9D /* New 2048.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "New 2048.entitlements"; sourceTree = "<group>"; };
+		512280C21EE27E8700A33A9D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		51A83A881EDE204300383840 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		51CCEB8B1ED915CA00D3AEF4 /* New 2048.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "New 2048.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51CCEB8E1ED915CA00D3AEF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +99,8 @@
 		51CCEB8D1ED915CA00D3AEF4 /* New 2048 */ = {
 			isa = PBXGroup;
 			children = (
+				512280C21EE27E8700A33A9D /* GoogleService-Info.plist */,
+				512280C11EE1297B00A33A9D /* New 2048.entitlements */,
 				51CCEBC51ED919BE00D3AEF4 /* Controller */,
 				51CCEBC41ED9199600D3AEF4 /* Model */,
 				51CCEBC31ED9197800D3AEF4 /* Support */,
@@ -196,6 +201,11 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = QQLPZRZ2LG;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -225,6 +235,7 @@
 				51CCEB9A1ED915CA00D3AEF4 /* Main.storyboard in Resources */,
 				51CCEBC71ED95DDD00D3AEF4 /* Mix.wav in Resources */,
 				51CCEBC21ED9181F00D3AEF4 /* Assets.xcassets in Resources */,
+				512280C31EE27E8700A33A9D /* GoogleService-Info.plist in Resources */,
 				51CCEB9F1ED915CA00D3AEF4 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,6 +432,7 @@
 			baseConfigurationReference = EE1990EFFCAA5A74B9CB51CE /* Pods-New 2048.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "New 2048/New 2048.entitlements";
 				DEVELOPMENT_TEAM = QQLPZRZ2LG;
 				INFOPLIST_FILE = "New 2048/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -437,6 +449,7 @@
 			baseConfigurationReference = 9B66B981D1012A06F979CA61 /* Pods-New 2048.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "New 2048/New 2048.entitlements";
 				DEVELOPMENT_TEAM = QQLPZRZ2LG;
 				INFOPLIST_FILE = "New 2048/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
