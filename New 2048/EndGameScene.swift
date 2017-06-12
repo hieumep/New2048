@@ -89,6 +89,9 @@ class EndGameScene : SKScene, GADInterstitialDelegate {
                 let gameScene = GameScene(size: self.size, newGame: true)
                 view?.presentScene(gameScene, transition: reveal)
             }
+//            let reveal = SKTransition.doorsOpenHorizontal(withDuration: 0.5)
+//            let gameScene = GameScene(size: self.size, newGame: true)
+//            view?.presentScene(gameScene, transition: reveal)
         }
     }
     

@@ -370,10 +370,10 @@ class GameVsAiScene : SKScene {
                     let size = nextNode!.size
                     let animateTexture = SKAction.animate(with: [newTexture!], timePerFrame: 0.1)
                     let ZoomOut = SKAction.scale(to: CGSize(width: size.width * 1.2, height: size.height * 1.2), duration: 0.1)
-                    let ZoomIn = SKAction.scale(to: size, duration: 0.1)
-                    let sound = SKAction.playSoundFileNamed("Mix.wav", waitForCompletion: false)
+                    let ZoomIn = SKAction.scale(to: size, duration: 0.1)                    
                     var skActionSequence = SKAction.sequence([])
                     if flagSound {
+                        let sound = SKAction.playSoundFileNamed("Mix.wav", waitForCompletion: false)
                         skActionSequence = SKAction.sequence([SKAction.wait(forDuration: duration), animateTexture, sound, ZoomOut,ZoomIn])
                     }   else {
                         skActionSequence = SKAction.sequence([SKAction.wait(forDuration: duration), animateTexture, ZoomOut,ZoomIn])

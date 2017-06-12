@@ -14,7 +14,7 @@ class MenuAIScene : SKScene {
     var funAIButton : SKSpriteNode!
     var menuButton : SKSpriteNode!
     var paddingY : CGFloat = 150
-    var flagFunAI = false // if false = locked
+    var flagFunAI = true // if false = locked
     var flagStrictlyAI = false
     
     override func didMove(to view: SKView) {
